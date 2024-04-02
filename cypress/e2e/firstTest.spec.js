@@ -7,7 +7,6 @@ describe('First test suite', () => {
 
     beforeEach( 'open  template search page', () => {
         cy.visit('/maker/mydesigns/logodrafts/8bf87f2e-0afd-4621-8bc0-ab2ac015dd97/templatetypes?searchTerm=tech%20challenge')
-        cy.get(selectors.searchBox).clear()
     })
 
     it('should display template search page', () => {
@@ -31,4 +30,17 @@ describe('First test suite', () => {
         onSearchPage.selectACategory('Facebook')
         cy.get(selectors.resultPage).should('contain', 'Facebook Post')
         })
+
+    it('should be able to load more design from search result page', () => {
+        onSearchPage.searchTemplate('flowers')
+        cy.get('button').contains('Load More Designs',{ matchCase: false }).should('be.visible').click()
+    })
+
+    it('should be able to select from search result', () => {
+        onSearchPage.searchTemplate('social media')
+        cy.get('[data-test-design-images]').eq(3).click()
+        cy.contains('Select a design type').should('be.visible')
+        cy.contains('You can continue to customize on the next step').should('be.visible')
+    })
+        
     })
