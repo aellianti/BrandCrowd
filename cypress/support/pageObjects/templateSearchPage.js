@@ -13,11 +13,12 @@ export class TemplateSearchPage{
 
     selectACategory(category){ 
         cy.get('[type="checkbox"]').then( checkBox => {
-            cy.wrap(checkBox).get('[value="'+ category +'"]').check({force:true}).should('be.checked')
+            cy.wrap(checkBox).get('[value="'+ category +'"]')
+                .check({force:true})
+                .should('be.checked')
         })
 
     }
-    
     
 }
 

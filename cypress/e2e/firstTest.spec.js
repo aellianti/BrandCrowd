@@ -5,7 +5,7 @@ import selectors from "../support/selectors.js"
 
 describe('First test suite', () => {
 
-    beforeEach( 'open  template search page', () => {
+    beforeEach( 'open template search page', () => {
         cy.visit('/maker/mydesigns/logodrafts/8bf87f2e-0afd-4621-8bc0-ab2ac015dd97/templatetypes?searchTerm=tech%20challenge')
     })
 
@@ -33,7 +33,9 @@ describe('First test suite', () => {
 
     it('should be able to load more design from search result page', () => {
         onSearchPage.searchTemplate('flowers')
-        cy.get('button').contains('Load More Designs',{ matchCase: false }).should('be.visible').click()
+        cy.get('button').contains('Load More Designs',{ matchCase: false })
+            .should('be.visible')
+            .click()
     })
 
     it('should be able to select from search result', () => {
