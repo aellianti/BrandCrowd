@@ -5,7 +5,7 @@ import selectors from "../support/selectors.js"
 
 describe('First test suite', () => {
 
-    beforeEach( 'open template search page', () => {
+    beforeEach(() => {
         cy.visit('/maker/mydesigns/logodrafts/8bf87f2e-0afd-4621-8bc0-ab2ac015dd97/templatetypes?searchTerm=tech%20challenge')
     })
 
@@ -28,14 +28,17 @@ describe('First test suite', () => {
         cy.get(selectors.resultPage).should('not.contain', 'Facebook Post')
 
         onSearchPage.selectACategory('Facebook')
-        cy.get(selectors.resultPage).should('contain', 'Facebook Post')
-        })
+        cy.get(selectors.resultPage).should('contain', 'Facebook Post')})
 
     it('should be able to load more design from search result page', () => {
+        let itemCount
+
         onSearchPage.searchTemplate('flowers')
+        cy.get('.masonry-item').its('length').then((length) => { itemCount = length })
         cy.get('button').contains('Load More Designs',{ matchCase: false })
             .should('be.visible')
             .click()
+        cy.get('.masonry-item').should(($items) => {expect($items.length).be.greaterThan(itemCount) })
     })
 
     it('should be able to select from search result', () => {
